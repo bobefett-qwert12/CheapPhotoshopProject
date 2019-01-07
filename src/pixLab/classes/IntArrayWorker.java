@@ -113,8 +113,8 @@ public class IntArrayWorker
   }
   public int getColTotal(int col) {
 	  int total = 0;
-	  for (int i = 0; i < matrix.length; i++) {
-		  total += matrix[i][col];
+	  for (int row = 0; row < matrix.length; row++) {
+		  total += matrix[row][col];
 	  }
 	  return total;
   }
