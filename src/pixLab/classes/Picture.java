@@ -146,6 +146,24 @@ public class Picture extends SimplePicture
 	  }
   }
   
+  public void mirrorDiagonal()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel upPixel = null;
+	  Pixel downPixel = null;
+	  int length = pixels.length;
+	  int height = pixels[0].length;
+	  for (int row = 0; row < length; row++) {
+		  for (int col = row; col < height; col++) {
+			  if(col < length && row < height) {
+				  upPixel = pixels[row][col];
+				  downPixel = pixels[col][row];
+				  downPixel.setColor(upPixel.getColor());
+			  }
+		  }
+	  }
+  }
+  
   /** Mirror just part of a picture of a temple */
   public void mirrorTemple()
   {
@@ -237,6 +255,10 @@ public class Picture extends SimplePicture
     this.write("collage.jpg");
   }
   
+  public void glitchThis()
+  {
+	  
+  }
   
   /** Method to show large changes in color 
     * @param edgeDist the distance for finding edges
@@ -272,7 +294,8 @@ public class Picture extends SimplePicture
   {
     Picture beach = new Picture("seagull.jpg");
     beach.explore();
-    beach.zeroBlue();
+    //beach.zeroBlue();
+    beach.mirrorDiagonal();
     beach.explore();
   }
   
