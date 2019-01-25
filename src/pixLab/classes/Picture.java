@@ -99,6 +99,18 @@ public class Picture extends SimplePicture
     }
   }
   
+  public void zeroBlue(int startCol, int startRow)
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	    for (int row = startRow; row < pixels.length; row++)
+	    {
+	      for (int col = startCol; col < pixels[0].length; col++)
+	      {
+	        pixels[row][col].setBlue(0);
+	      }
+	    }
+  }
+  
   public void zeroRed()
   {
     Pixel[][] pixels = this.getPixels2D();
@@ -109,6 +121,18 @@ public class Picture extends SimplePicture
         pixelObj.setRed(0);
       }
     }
+  }
+  
+  public void zeroRed(int startCol, int startRow)
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	    for (int row = startRow; row < pixels.length; row++)
+	    {
+	      for (int col = startCol; col < pixels[0].length; col++)
+	      {
+	        pixels[row][col].setRed(0);
+	      }
+	    }
   }
   
   /** Method that mirrors the picture around a 
@@ -257,7 +281,18 @@ public class Picture extends SimplePicture
   
   public void glitchThis()
   {
-	  
+	  this.mirrorVertical();
+	  this.shiftLeftRight(-82);
+	  this.mirrorVertical();
+	  this.shiftLeftRight(-20);
+	  this.mirrorVertical();
+	  this.mirrorHorizontal();
+	  this.shiftUpDown(134);
+	  this.mirrorHorizontal();
+	  this.shiftUpDown(95);
+	  this.mirrorDiagonal();
+	  this.zeroRed(200, 20);
+	  this.zeroBlue(20, 200);
   }
   
   /** Method to show large changes in color 
@@ -326,13 +361,74 @@ public class Picture extends SimplePicture
 	  }
   }
   
+  public void shiftLeftRight(int amount)
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Picture temp = new Picture (this);
+	  Pixel[][] copied = temp.getPixels2D();
+	  
+	  int shiftedValue = amount;
+	  int width = pixels[0].length;
+	  
+	  for (int row = 0; row < pixels.length; row++)
+	  {
+		  for (int col = 0; col < pixels[0].length; col ++)
+		  {
+			  shiftedValue = (col+amount) % width;
+			  if(amount < 0)
+			  {
+				  shiftedValue = ((col+amount) % width + width) % width;
+			  }
+			  copied[row][col].setColor(pixels[row][shiftedValue].getColor());
+		  }
+	  }
+	  for (int row = 0; row < pixels.length; row++)
+	  {
+		  for(int col = 0; col < pixels[0].length; col++)
+		  {
+			  pixels[row][col].setColor(copied[row][col].getColor());
+		  }
+	  }
+  }
+  
+  public void shiftUpDown(int amount)
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Picture temp = new Picture (this);
+	  Pixel[][] copied = temp.getPixels2D();
+	  
+	  int shiftedValue = amount;
+	  int height = pixels.length;
+	  
+	  for (int row = 0; row < pixels.length; row++)
+	  {
+		  for (int col = 0; col < pixels[0].length; col ++)
+		  {
+			  shiftedValue = (row+amount) % height;
+			  if(amount < 0)
+			  {
+				  shiftedValue = ((row+amount) % height + height) % height;
+			  }
+			  copied[row][col].setColor(pixels[shiftedValue][col].getColor());
+		  }
+	  }
+	  for (int row = 0; row < pixels.length; row++)
+	  {
+		  for(int col = 0; col < pixels[0].length; col++)
+		  {
+			  pixels[row][col].setColor(copied[row][col].getColor());
+		  }
+	  }
+  }
+  
   /* Main method for testing - each class in Java can have a main 
    * method 
    */
   public static void main(String[] args) 
   {
-    Picture beach = new Picture("seagull.jpg");
-    beach.zeroBlue();
+    Picture beach = new Picture("koala.jpg");
+    beach.explore();
+    beach.glitchThis();
     beach.explore();
   }
   
