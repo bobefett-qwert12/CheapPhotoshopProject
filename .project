@@ -16,6 +16,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>src/pixLab/images/Metroid_Fanart.jpg</name>
+			<type>1</type>
+			<location>/Users/rper7060/Documents/art/Glitches/Metroid_Fanart.jpg</location>
+		</link>
+		<link>
 			<name>src/pixLab/images/blackAndWhite.jpg</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Documents/pixLab/images/blackAndWhite.jpg</locationURI>

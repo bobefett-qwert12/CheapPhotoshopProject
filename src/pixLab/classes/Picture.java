@@ -99,12 +99,12 @@ public class Picture extends SimplePicture
     }
   }
   
-  public void zeroBlue(int startCol, int startRow)
+  public void zeroBlue(int startCol, int startRow, int endCol, int endRow)
   {
 	  Pixel[][] pixels = this.getPixels2D();
-	    for (int row = startRow; row < pixels.length; row++)
+	    for (int row = startRow; row < endRow; row++)
 	    {
-	      for (int col = startCol; col < pixels[0].length; col++)
+	      for (int col = startCol; col < endCol; col++)
 	      {
 	        pixels[row][col].setBlue(0);
 	      }
@@ -123,14 +123,38 @@ public class Picture extends SimplePicture
     }
   }
   
-  public void zeroRed(int startCol, int startRow)
+  public void zeroRed(int startCol, int startRow, int endCol, int endRow)
   {
 	  Pixel[][] pixels = this.getPixels2D();
-	    for (int row = startRow; row < pixels.length; row++)
+	    for (int row = startRow; row < endRow; row++)
 	    {
-	      for (int col = startCol; col < pixels[0].length; col++)
+	      for (int col = startCol; col < endCol; col++)
 	      {
 	        pixels[row][col].setRed(0);
+	      }
+	    }
+  }
+  
+  public void zeroGreen()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        pixelObj.setGreen(0);
+      }
+    }
+  }
+  
+  public void zeroGreen(int startCol, int startRow, int endCol, int endRow)
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	    for (int row = startRow; row < endRow; row++)
+	    {
+	      for (int col = startCol; col < endCol; col++)
+	      {
+	        pixels[row][col].setGreen(0);
 	      }
 	    }
   }
@@ -290,9 +314,14 @@ public class Picture extends SimplePicture
 	  this.shiftUpDown(134);
 	  this.mirrorHorizontal();
 	  this.shiftUpDown(95);
+	  this.zeroGreen(190, 175, 300, 275);
+	  this.zeroBlue(350, 240, 420, 330);
 	  this.mirrorDiagonal();
-	  this.zeroRed(200, 20);
-	  this.zeroBlue(20, 200);
+	  this.zeroGreen(200, 20, 400, 90);
+	  this.zeroBlue(100, 300, 160, 375);
+	  this.zeroGreen(500, 80, 730, 350);
+	  this.zeroBlue(660, 60, 950, 300);
+	  this.zeroRed(600, 250, 890, 550);
   }
   
   /** Method to show large changes in color 
@@ -426,7 +455,7 @@ public class Picture extends SimplePicture
    */
   public static void main(String[] args) 
   {
-    Picture beach = new Picture("koala.jpg");
+    Picture beach = new Picture("Metroid_Fanart.jpg");
     beach.explore();
     beach.glitchThis();
     beach.explore();
